@@ -1,0 +1,83 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+h1, h2, h3, th {
+    font-family: 'Emilys Candy', cursive;
+    text-transform: uppercase;
+    padding: 3px;
+}
+
+h1 {
+    color: hotpink;
+}
+
+a {
+    color: #000;
+}
+
+a:hover {
+    color: deeppink;
+}
+
+hr {
+    height: 1px;
+    background: #c4c4c4;
+    border: none;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    min-height: 100px;
+}
+tr:nth-child(even) {
+    border: none;
+}
+
+tr:hover {
+    background-color: bisque;
+}
+
+#logo {
+    width: 150px;
+    float: left;
+    margin: 10px 0 0 100px;
+}
+
+#logo img {
+    width: 100%;
+}
+
+header nav {
+    float: right;
+    margin: 10px 100px 0 0;
+}
+
+header nav ul li {
+    float: left;
+    padding-left: 20px;
+}
+
+main {
+    clear: both;
+}
