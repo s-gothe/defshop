@@ -8,6 +8,7 @@
 - basket listing  (image, name, color, price net, price gross)
 - delete products from basket
 - article count for cart
+- buy more then one piece
 
 # optimizations
 - add .htacces file for change shown file ending from .php => .html
