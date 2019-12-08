@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class ProductsController
+ */
 class ProductsController extends ProductModel
 {
+    /**
+     * ProductsController constructor.
+     * @param int|null $id
+     */
     public function __construct(int $id = null)
     {
         if (!is_null($id)) {
@@ -10,6 +17,9 @@ class ProductsController extends ProductModel
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function listAllProducts(): array
     {
         $results = [];
@@ -24,6 +34,10 @@ class ProductsController extends ProductModel
         return $results;
     }
 
+    /**
+     * @param string $color
+     * @return array
+     */
     public function listProductsFilteredByColor(string $color): array
     {
         $results = [];
@@ -38,6 +52,9 @@ class ProductsController extends ProductModel
         return $results;
     }
 
+    /**
+     * @param int $productId
+     */
     public function addProductToBasket(int $productId)
     {
         $flag = false;
@@ -51,6 +68,9 @@ class ProductsController extends ProductModel
         }
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteProductFromBasket(int $id)
     {
         if (isset($_SESSION['basket'])) {
@@ -62,6 +82,9 @@ class ProductsController extends ProductModel
         }
     }
 
+    /**
+     * @return array
+     */
     public function getProductsFromBasket(): array
     {
         $productIds = $_SESSION['basket'];
@@ -73,6 +96,9 @@ class ProductsController extends ProductModel
         return $productsArray;
     }
 
+    /**
+     * @return array
+     */
     public function getColorList(): array
     {
         $result = [];

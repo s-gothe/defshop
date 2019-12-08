@@ -1,13 +1,41 @@
 <?php
+// Initialize
 session_start();
 
 include 'includes/Autoloader.inc.php';
 include 'includes/Constants.inc.php';
 
 $productController = new ProductsController();
-$colorFilter = $productController->getColorList();
 
+
+
+
+
+#$test = new InitDb();
+
+
+
+
+
+
+// delete from cart
+if (isset($_POST['deleteFromCart']) && !empty($_POST['articleId'])) {
+    $productController->deleteProductFromBasket($_POST['articleId']);
+}
+
+// add to cart
+if (isset($_POST['addToCart']) && !empty($_POST['articleId'])) {
+    $productController->addProductToBasket($_POST['articleId']);
+}
+
+// Filter
+$colorFilter = $productController->getColorList();
 $filter = (isset($_POST['filterColor'])) ? $_POST['filterColor'] : null;
+if (!is_null($filter) && $filter !== 'All') {
+    $productList = $productController->listProductsFilteredByColor($_POST['filterColor']);
+} else {
+    $productList = $productController->listAllProducts();
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +55,7 @@ $filter = (isset($_POST['filterColor'])) ? $_POST['filterColor'] : null;
 <body>
 <header>
     <div id="logo">
-        <a href="#">
+        <a href="index.php">
             <img src="images/Logo.jpg" alt="Logo">
         </a>
     </div>
@@ -38,10 +66,10 @@ $filter = (isset($_POST['filterColor'])) ? $_POST['filterColor'] : null;
                 <li>
                     <p>Artikel im Warenkorb: <strong><?php echo count($_SESSION['basket']); ?></strong></p>
                 </li>
-                <li><a href="http://localhost:8080/candyshop/">Zurück zum Shop</a></li>
+                <li><a href="index.php">Zurück zum Shop</a></li>
             <?php else : ?>
                 <li>
-                    <form action="http://localhost:8080/candyshop/" method="post">
+                    <form action="index.php" method="post">
                         <label>Filter:
                             <select id="colorFilter" name="filterColor" size="1">
 
@@ -60,7 +88,10 @@ $filter = (isset($_POST['filterColor'])) ? $_POST['filterColor'] : null;
                         </label>
                     </form>
                 </li>
-                <li><a href="http://localhost:8080/candyshop/basket.php">Warenkorb</a></li>
+                <li>
+                    <a href="basket.php">Warenkorb</a>&nbsp;
+                    (<strong><?php echo count($_SESSION['basket']); ?></strong>)
+                </li>
             <?php endif; ?>
 
         </ul>

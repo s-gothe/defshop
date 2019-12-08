@@ -18,13 +18,14 @@ class InitDb extends Connection
         $dsn = 'mysql:host=' . $this->host;
         $this->pdo = $this->createNewPdo($dsn);
 
-        #$this->initializeDatabase();
-        #$this->initializeTableProducts();
+        // start automatic installation of sample data (db, table, data)
+        $this->initializeDatabase();
+        $this->initializeTableProducts();
         $this->initializeTestData();
     }
 
     /**
-     *
+     * create database 'candyshop'
      */
     private function initializeDatabase()
     {
@@ -32,103 +33,85 @@ class InitDb extends Connection
             $this->pdo->exec("CREATE DATABASE `$this->database`;
                 CREATE USER '$this->user'@'localhost' IDENTIFIED BY '$this->password';
                 GRANT ALL ON `$this->database`.* TO '$this->user'@'localhost';
-                FLUSH PRIVILEGES;")
-            or die('DB Error: ' . print_r($this->pdo->errorInfo(), true));
-
+                FLUSH PRIVILEGES;");
         } catch (PDOException $e) {
             die("DB ERROR: " . $e->getMessage());
         }
-        echo 'Db check';
     }
 
     /**
-     *
+     *  add table 'products' to new created db
      */
     public function initializeTableProducts()
     {
-        $dsn = 'mysql:host=' . $this->host .';dbname='.$this->database;
-        $this->pdo = $this->createNewPdo($dsn);
-
         try {
-            $sql = "CREATE TABLE IF NOT EXISTS $this->tblProducts(
-              id INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-              name VARCHAR( 50 ) NOT NULL,
-              image TEXT NOT NULL,
-              color VARCHAR( 20 ) NOT NULL,
-              price_net FLOAT NOT NULL,
-              price_gross FLOAT NOT NULL);";
-            $this->pdo->exec($sql)
-            or die('Table Error: ' . print_r($this->pdo->errorInfo(), true));
+            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->database;
+            $this->pdo = $this->createNewPdo($dsn);
+
+            $this->pdo->exec("CREATE TABLE `$this->tblProducts` (
+             `id` INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+             `name` VARCHAR(50) NOT NULL,
+             `image` TEXT NOT NULL,
+             `color` VARCHAR(20) NOT NULL,
+             `price_gross` FLOAT NOT NULL,
+             `price_net` FLOAT NOT NULL);");
 
         } catch (PDOException $e) {
-            die("Table ERROR: " . $e->getMessage());
+            echo $e->getMessage();
         }
-
-        echo 'Table check';
     }
 
     /**
-     *
+     *  apply sample data
      */
-    private function initializeTestData()
+    public function initializeTestData()
     {
-        /*function random_color_part() {
-            return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-        }
+        // table fields
+        $datafields = array('name', 'image', 'color', 'price_net', 'price_gross');
 
-        function random_color() {
-            return random_color_part() . random_color_part() . random_color_part();
-        }
-
-        for ($i = 0; $i < 20; $i++) {
-            echo '<span style="color:#'. random_color().'">Stefan ist doof</span><br />';
-        }*/
-
-
-        $statement = $this->pdo->prepare("INSERT INTO $this->tblProducts (name, image, color, price_net, price_gross) VALUES (?, ?, ?, ?, ?)");
-        $statement->execute(array('wert1', 'wert2', 'wert3', '1.5', '1.5'));
-
-        /*$path = 'images/products/';
-        echo '<img src="'.$path.'gummy-bear-green.jpg">';
-
+        // Sample data array
         $data = [
-             ['Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5],
-             ['Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5],
-            ]
-             /*'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5 ,
-             'Gummy Bear', $path . 'gummy-bear-green.jpg', 'green', 10.5, 10.5]
-         ;
-        $stmt = $this->pdo->prepare("INSERT INTO $this->tblProducts (name, image, color, price_net, price_gross) VALUES (?,?,?,?,?)");
+            ['Hitschler Schnüre Erdbeer', 'hitschler-schn-re-erdbeer.jpg', 'red', '0.89', '0.89'],
+            ['Hitschler Schnüre Apfel', 'hitschler-schnuere-apfel.jpg','green', '0.89', '0.89'],
+            ['Katjes Lakritz batzen', 'katjes-lakritz-batzen.png', 'black', '0.89', '0.89'],
+            ['Haribo Balla Balla', 'haribo-balla-balla.jpg', 'colorful', '0.99', '0.99'],
+            ['Haribo Roulette', 'haribo-roulette.png', 'colorful', '0.99', '0.99'],
+            ['Katjes Katjes Kinder', 'katjes-katjes-kinder.png', 'black', '0.89', '0.89'],
+            ['Katjes Salzige Heringe', 'katjes-salzige-heringe.png', 'black', '0.89', '0.89'],
+            ['Katjes Tappsy', 'katjes-tappsy.png', 'black-white', '0.89', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-black-edition.png', 'black', '0.89', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-pink-edition.png', 'pink', '0.89', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-rainbow-edition.png', 'colorful', '0.89', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-white.png', 'white', '0.89', '0.89'],
+            ['Katjes Yoghurt Gums', 'katjes-yoghurt-gums.png', 'pink', '0.89', '0.89'],
+            ['Nimm2 Lachgummi Softies', 'nimm2-lachgummi-softies.png', 'colorful', '1.29', '1.29'],
+            ['Nimm2 Lolly', 'nimm2-lolly.png', 'colorful', '2.39', '2.39'],
+            ['Red Band Cola Flaeschchen autopack', 'red-band-cola-flaeschchen-autopack.png', 'brown', '0.99', '0.99'],
+            ['Red Band Euca Menthol', 'red-band-euca-menthol-pastillen.png', 'green', '1.99', '1.99'],
+            ['Red Band Fruchtgummi Lakritz Duos', 'red-band-fruchtgummi-lakritz-duos.png', 'colorful', '1.99', '1.99'],
+            ['Red Band Gummi Staebchen super sauer', 'red-band-gummi-staebchen-super-sauer.png', 'colorful', '1.99', '1.99' ,],
+            ['Red Band Wilde Wrdbeeren', 'red-band-wilde-erdbeeren.png', 'red', '1.99', '1.99']
+        ];
+
+        $this->pdo->beginTransaction();
+        $insert_values = array();
+        foreach($data as $d){
+            $question_marks[] = '(?,?,?,?,?)';
+            $insert_values = array_merge($insert_values, array_values($d));
+        }
+
+        $query = "INSERT INTO " . $this->tblProducts
+            . " (".implode(',', $datafields).") VALUES "
+            . implode(',', $question_marks) .";";
+
+        $stmt = $this->pdo->prepare($query);
 
         try {
-            $this->pdo->beginTransaction();
-            foreach ($data as $row)
-            {
-                $stmt->execute($row);
-            }
-            $this->pdo->commit();
-        }catch (Exception $e){
-            $this->pdo->rollback();
-            throw $e;
+            $stmt->execute($insert_values);
+        } catch (PDOException $e){
+            echo $e->getMessage();
         }
-        */
-
+        $this->pdo->commit();
     }
 
     /**

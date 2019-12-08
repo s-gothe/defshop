@@ -1,10 +1,6 @@
 <?php
 include_once 'html/header.phtml';
 
-// delete product from basket
-if (isset($_POST['deleteFromCart']) && !empty($_POST['articleId'])) {
-    $productController->deleteProductFromBasket($_POST['articleId']);
-}
 // load products in basket
 $productListBasket = $productController->getProductsFromBasket();
 ?>
@@ -32,7 +28,7 @@ $productListBasket = $productController->getProductsFromBasket();
                     <td><?php echo $item->pricNet; ?></td>
                     <td><?php echo $item->priceGross; ?></td>
                     <td>
-                        <form action="http://localhost:8080/candyshop/basket.php" method="post">
+                        <form action="basket.php" method="post">
                             <input type="hidden" name="articleId" value="<?php echo $item->id; ?>">
                             <button type="submit" class="deleteFromCart" name="deleteFromCart">
                                 Delete to cart

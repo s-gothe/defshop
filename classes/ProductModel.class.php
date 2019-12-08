@@ -24,6 +24,9 @@ class ProductModel extends Connection
     /** @var $int $priceGross */
     public $priceGross;
 
+    /**
+     * @param int $id
+     */
     public function load(int $id)
     {
         try {
@@ -38,6 +41,9 @@ class ProductModel extends Connection
         }
     }
 
+    /**
+     * @param array $data
+     */
     public function setData( array $data ) {
         $this->id = $data['id'];
         $this->name = $data['name'];
