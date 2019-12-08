@@ -11,6 +11,7 @@ class ProductsController extends ProductModel
      */
     public function __construct(int $id = null)
     {
+        // create prduct model when tranfer an id
         if (!is_null($id)) {
             $this->load($id);
         }
@@ -18,6 +19,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Returns a list of all product as an obj
+     *
      * @return array
      */
     public function listAllProducts(): array
@@ -35,6 +38,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Returns a list of product objects filtered by color
+     *
      * @param string $color
      * @return array
      */
@@ -53,6 +58,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Adds a product to the basket
+     *
      * @param int $productId
      */
     public function addProductToBasket(int $productId)
@@ -69,6 +76,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Delete a product from shopping cart
+     *
      * @param int $id
      */
     public function deleteProductFromBasket(int $id)
@@ -83,6 +92,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Returns a list of product objects which are in basket
+     *
      * @return array
      */
     public function getProductsFromBasket(): array
@@ -97,6 +108,8 @@ class ProductsController extends ProductModel
     }
 
     /**
+     * Returns a list with all product colors
+     *
      * @return array
      */
     public function getColorList(): array

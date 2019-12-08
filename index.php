@@ -1,6 +1,4 @@
-<?php
-include_once 'html/header.phtml';
-?>
+<?php include_once 'html/header.phtml'; ?>
     <h1>Product Listing</h1>
     <table cellspacing="0" cellpadding="0">
         <tr>

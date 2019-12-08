@@ -1,7 +1,6 @@
-<?php
-include_once 'html/header.phtml';
+<?php include_once 'html/header.phtml';
 
-// load products in basket
+// load products which are in basket
 $productListBasket = $productController->getProductsFromBasket();
 ?>
     <h1>Basket</h1>

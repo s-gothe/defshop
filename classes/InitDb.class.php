@@ -95,17 +95,19 @@ class InitDb extends Connection
 
         $this->pdo->beginTransaction();
         $insert_values = array();
+        // create nessasary helper vars
         foreach($data as $d){
             $question_marks[] = '(?,?,?,?,?)';
             $insert_values = array_merge($insert_values, array_values($d));
         }
 
+        // create db query
         $query = "INSERT INTO " . $this->tblProducts
             . " (".implode(',', $datafields).") VALUES "
             . implode(',', $question_marks) .";";
-
         $stmt = $this->pdo->prepare($query);
 
+        // execute db statement
         try {
             $stmt->execute($insert_values);
         } catch (PDOException $e){

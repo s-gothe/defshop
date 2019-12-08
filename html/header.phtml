@@ -7,17 +7,6 @@ include 'includes/Constants.inc.php';
 
 $productController = new ProductsController();
 
-
-
-
-
-#$test = new InitDb();
-
-
-
-
-
-
 // delete from cart
 if (isset($_POST['deleteFromCart']) && !empty($_POST['articleId'])) {
     $productController->deleteProductFromBasket($_POST['articleId']);
@@ -28,7 +17,7 @@ if (isset($_POST['addToCart']) && !empty($_POST['articleId'])) {
     $productController->addProductToBasket($_POST['articleId']);
 }
 
-// Filter
+// filter
 $colorFilter = $productController->getColorList();
 $filter = (isset($_POST['filterColor'])) ? $_POST['filterColor'] : null;
 if (!is_null($filter) && $filter !== 'All') {
