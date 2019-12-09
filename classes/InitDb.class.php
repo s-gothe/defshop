@@ -71,26 +71,26 @@ class InitDb extends Connection
 
         // Sample data array
         $data = [
-            ['Hitschler Schnüre Erdbeer', 'hitschler-schn-re-erdbeer.jpg', 'red', '0.89', '0.89'],
-            ['Hitschler Schnüre Apfel', 'hitschler-schnuere-apfel.jpg','green', '0.89', '0.89'],
-            ['Katjes Lakritz batzen', 'katjes-lakritz-batzen.png', 'black', '0.89', '0.89'],
-            ['Haribo Balla Balla', 'haribo-balla-balla.jpg', 'colorful', '0.99', '0.99'],
-            ['Haribo Roulette', 'haribo-roulette.png', 'colorful', '0.99', '0.99'],
-            ['Katjes Katjes Kinder', 'katjes-katjes-kinder.png', 'black', '0.89', '0.89'],
-            ['Katjes Salzige Heringe', 'katjes-salzige-heringe.png', 'black', '0.89', '0.89'],
-            ['Katjes Tappsy', 'katjes-tappsy.png', 'black-white', '0.89', '0.89'],
-            ['Katjes Wunderland', 'katjes-wunderland-black-edition.png', 'black', '0.89', '0.89'],
-            ['Katjes Wunderland', 'katjes-wunderland-pink-edition.png', 'pink', '0.89', '0.89'],
-            ['Katjes Wunderland', 'katjes-wunderland-rainbow-edition.png', 'colorful', '0.89', '0.89'],
-            ['Katjes Wunderland', 'katjes-wunderland-white.png', 'white', '0.89', '0.89'],
-            ['Katjes Yoghurt Gums', 'katjes-yoghurt-gums.png', 'pink', '0.89', '0.89'],
-            ['Nimm2 Lachgummi Softies', 'nimm2-lachgummi-softies.png', 'colorful', '1.29', '1.29'],
-            ['Nimm2 Lolly', 'nimm2-lolly.png', 'colorful', '2.39', '2.39'],
-            ['Red Band Cola Flaeschchen autopack', 'red-band-cola-flaeschchen-autopack.png', 'brown', '0.99', '0.99'],
-            ['Red Band Euca Menthol', 'red-band-euca-menthol-pastillen.png', 'green', '1.99', '1.99'],
-            ['Red Band Fruchtgummi Lakritz Duos', 'red-band-fruchtgummi-lakritz-duos.png', 'colorful', '1.99', '1.99'],
-            ['Red Band Gummi Staebchen super sauer', 'red-band-gummi-staebchen-super-sauer.png', 'colorful', '1.99', '1.99' ,],
-            ['Red Band Wilde Wrdbeeren', 'red-band-wilde-erdbeeren.png', 'red', '1.99', '1.99']
+            ['Hitschler Schnüre Erdbeer', 'hitschler-schn-re-erdbeer.jpg', 'red', '0.83', '0.89'],
+            ['Hitschler Schnüre Apfel', 'hitschler-schnuere-apfel.jpg','green', '0.83', '0.89'],
+            ['Katjes Lakritz batzen', 'katjes-lakritz-batzen.png', 'black', '0.83', '0.89'],
+            ['Haribo Balla Balla', 'haribo-balla-balla.jpg', 'colorful', '0.92', '0.99'],
+            ['Haribo Roulette', 'haribo-roulette.png', 'colorful', '0.92', '0.99'],
+            ['Katjes Katjes Kinder', 'katjes-katjes-kinder.png', 'black', '0.83', '0.89'],
+            ['Katjes Salzige Heringe', 'katjes-salzige-heringe.png', 'black', '0.83', '0.89'],
+            ['Katjes Tappsy', 'katjes-tappsy.png', 'black-white', '0.83', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-black-edition.png', 'black', '0.83', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-pink-edition.png', 'pink', '0.83', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-rainbow-edition.png', 'colorful', '0.83', '0.89'],
+            ['Katjes Wunderland', 'katjes-wunderland-white.png', 'white', '0.83', '0.89'],
+            ['Katjes Yoghurt Gums', 'katjes-yoghurt-gums.png', 'pink', '0.83', '0.89'],
+            ['Nimm2 Lachgummi Softies', 'nimm2-lachgummi-softies.png', 'colorful', '1.20', '1.29'],
+            ['Nimm2 Lolly', 'nimm2-lolly.png', 'colorful', '2.22', '2.39'],
+            ['Red Band Cola Flaeschchen autopack', 'red-band-cola-flaeschchen-autopack.png', 'brown', '0.92', '0.99'],
+            ['Red Band Euca Menthol', 'red-band-euca-menthol-pastillen.png', 'green', '1.85', '1.99'],
+            ['Red Band Fruchtgummi Lakritz Duos', 'red-band-fruchtgummi-lakritz-duos.png', 'colorful', '1.85', '1.99'],
+            ['Red Band Gummi Staebchen super sauer', 'red-band-gummi-staebchen-super-sauer.png', 'colorful', '1.85', '1.99' ,],
+            ['Red Band Wilde Wrdbeeren', 'red-band-wilde-erdbeeren.png', 'red', '1.85', '1.99']
         ];
 
         $this->pdo->beginTransaction();
